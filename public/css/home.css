@@ -114,7 +114,7 @@
     height: 15px;
     width: 15px;
     background-size: cover;
-    background-image: url('/icon/tick-mark.svg');
+    background-image: url('/public/icon/tick-mark.svg');
     border-radius: 50%;
     border: 2px solid #00BFA5;
     background-repeat: no-repeat;
@@ -191,7 +191,7 @@
 
     #section1{  
         background-color:transparent;
-        background-image: url('/images/laptops0.jpg'), url('/images/grn.jpg');
+        background-image: url('/public/image/laptops0.jpg'), url('/public/image/grn.jpg');
         background-size:100% 100%;
         background-blend-mode: multiply;
         height: 22vh;
