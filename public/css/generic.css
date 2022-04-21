@@ -1,0 +1,137 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+body{
+    background-color: #000;
+}
+
+#header{
+    background-color: #000;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    padding-bottom: 10px;
+}
+
+#logo{
+    width: 50px;
+    height: 50px;
+}
+
+#logo-text{
+    color: #00bfa5;
+    font-family:'Dancing Script', cursive;
+}
+
+#logo-bounds{
+    border: 5px solid #00bfa5;
+    border-radius: 10px;
+}
+
+#header-title{    color: #fff;
+    font-size: 40px;
+    padding: 10px;
+    width: 30%;
+}
+
+#header-title span #logo{
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+
+#menu{
+    background-color: #000;
+    display: flex;
+    flex-direction:row;
+    align-self: flex-end;
+}
+
+.item{
+    color: #fff;
+    padding: 0 20px 5px 20px;
+    cursor:pointer;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.item img, .item svg{
+    position: relative;
+    top: 5px;
+    left: -5px;
+    width: 25px;
+    height: 25px;
+}
+
+.item:hover{
+    color: #00bfa5;
+    border-bottom: 5px solid #00bfa5;
+}
+
+.item:hover > svg *{
+    fill:#00bfa5;
+    stroke:#fff;
+}
+
+#main{
+    background-color: #fff;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-top: 50px;
+}
+
+#main::-webkit-scrollbar, body::-webkit-scrollbar{
+    display:none;
+}
+
+.social-icon{
+    width: 32px;
+    height: 32px;
+}
+
+#quick-links-section{
+    background-color: #00bfa5;
+    color: white;
+    padding: 20px;
+}
+
+#footer-section1{
+    background-color: #00bfa5;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#quick-links-section a{
+    color: #fff;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+#contact-section{
+    color: #fff;
+    padding: 20px;
+}
+
+#social-links-section{
+    color: #fff;
+    padding: 20px;
+}
+
+#social-links-section a{
+    cursor:pointer;
+    text-decoration: none;
+}
+
+#footer-section2{
+    background-color: #000;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+}
+
