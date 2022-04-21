@@ -1,16 +1,24 @@
+import Home from "../src/component/Home.js";
 
 export default class App {
 
-    constructor(container){
-        this.container = container;
+    #container;
+    #home;
+
+    constructor(container) {
+        this.#container = container;
+        this.#home = new Home(this.#container);
     }
 
-    init(){
-
+    init = () => {
+        this.render()
     }
 
-    render(){
+    render = () => {
+        this.#home.render()
+    }
 
+    addEventListeners = () => {
     }
 }
 
