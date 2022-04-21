@@ -124,7 +124,7 @@ export const render = () => {
         </div>   
     </div>
     <div class="section-header section">
-        <img src="/public/icon/terms.svg" alt="info">
+        <img src="https://richardekong007.github.io/laptomart/public/icon/terms.svg" alt="info">
         <p>Terms and conditions applied</p>
     </div> 
 </div>`;
