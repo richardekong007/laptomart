@@ -1,0 +1,32 @@
+{
+  "name": "laptomart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && npm run server",
+    "server": "http-server -p 4100",
+    "build": "browserify src -t babelify -o public/js/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richardekong007/laptomart.git"
+  },
+  "keywords": [],
+  "author": "Richard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/richardekong007/laptomart/issues"
+  },
+  "homepage": "",
+  "dependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "http-server": "^14.1.0",
+    "tiny-emitter": "^2.1.0"
+  }
+}
