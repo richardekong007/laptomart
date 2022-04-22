@@ -11,7 +11,7 @@
 }
 
 #section1{
-    background-color:#000;
+    background-color: #2f8d4a;
     background-image: url('./image/laptops0.png'), url('./image/grn.png');
     background-size:100% 100%;
     background-blend-mode: multiply;
