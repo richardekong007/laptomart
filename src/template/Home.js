@@ -9,12 +9,12 @@ export const render = () => {
             <span id="search-label">Find your best deal</span>
             <div id="search-bar">
                 <input type="text" placeholder="Search by manufacturer, model or specifications"/>
-                <img id="search-btn" src="./public/icon/search-icon.svg" alt="search-icon"/>
+                <img id="search-btn" src="/icon/search-icon.svg" alt="search-icon"/>
             </div>
     </div>
     <div id="section2" class="section">
 	    <div class="section-header">
-		    <img src="./public/icon/group.svg" alt="group-icon">
+		    <img src="/icon/group.svg" alt="group-icon">
 			    <p>We strive to fulfill your desires by connecting you to 
                    moderately used laptops which are
 			    </p>	
@@ -34,13 +34,13 @@ export const render = () => {
     </div>
     <div class="section">
 	        <div class="section-header">
-		        <img src="./public/icon/gear.svg" alt="gear">
+		        <img src="/icon/gear.svg" alt="gear">
 		        <p>We Are Your Best Bet</p>
 	        </div>
 	        <div id="section3-contents">
                 <div class="sub-section">
                     <div class="sub-section-header">
-                        <img src="./public/icon/refund.svg" alt="refund">
+                        <img src="/icon/refund.svg" alt="refund">
                         <p>7 Days refund/return-back policy</p>
                     </div>
                     <div class="desc">
@@ -53,7 +53,7 @@ export const render = () => {
                 </div>
                 <div class="sub-section">
                     <div class="sub-section-header">
-                        <img src="./public/icon/van.svg" alt="van">
+                        <img src="/icon/van.svg" alt="van">
                         <p>Delivery Service</p>
                     </div>
                     <div class="desc">
@@ -64,7 +64,7 @@ export const render = () => {
                 </div>
                 <div class="sub-section">
                     <div class="sub-section-header">
-                        <img src="./public/icon/maintenance.svg" alt="maintenance">
+                        <img src="/icon/maintenance.svg" alt="maintenance">
                         <p>Maintenance</p>
                     </div>
                     <div class="desc">
@@ -75,7 +75,7 @@ export const render = () => {
                 </div>
                 <div class="sub-section">
                     <div class="sub-section-header">
-                        <img src="./public/icon/customize.svg" alt="customize">
+                        <img src="/icon/customize.svg" alt="customize">
                         <p>Device Customization</p>
                     </div>
                     <div class="desc">
@@ -87,7 +87,7 @@ export const render = () => {
     </div>
     <div id="section4" class="section">
         <div class="section-header">
-            <img src="./public/icon/benefit.svg" alt="benefit">
+            <img src="/icon/benefit.svg" alt="benefit">
             <p>What you get for your money?</p>
         </div>
         <div class="section-list">    
@@ -101,30 +101,30 @@ export const render = () => {
     </div>
     <div class="section">
         <div class="section-header">
-            <img src="./public/icon/feature.svg" alt="feature">
+            <img src="/icon/feature.svg" alt="feature">
             <p>Features</p>
         </div>
         <div id="feature-section">    
             <div>
-                <img src="./public/icon/power.svg" alt="power">
+                <img src="/icon/power.svg" alt="power">
                 <b>Durable Chargers</b>
             </div>
             <div>
-                <img src="./public/icon/battery.svg" alt="battery">
+                <img src="/icon/battery.svg" alt="battery">
                 <b>Battery of energy capacity between normal and excellent</b>
             </div>
             <div>
-                <img src="./public/icon/memory.svg" alt="memory">
+                <img src="/icon/memory.svg" alt="memory">
                 <b>Memories of various capacities</b>
             </div>
             <div>
-                <img src="./public/icon/disk.svg" alt="disk">
+                <img src="/icon/disk.svg" alt="disk">
                 <b>Functional Operating System and productivity software</b>
             </div>
         </div>   
     </div>
     <div class="section-header section">
-        <img src="./public/icon/terms.svg" alt="info">
+        <img src="/icon/terms.svg" alt="info">
         <p>Terms and conditions applied</p>
     </div> 
 </div>`;
