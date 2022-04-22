@@ -12,7 +12,7 @@
 
 #section1{
     background-color: #2f8d4a;
-    background-image: url('./image/laptops0.png'), url('./image/grn.png');
+    background-image: url('image/laptops0.png'), url('image/grn.png');
     background-size:100% 100%;
     background-blend-mode: multiply;
     border-top: 30px solid #00BFA5;
@@ -191,7 +191,7 @@
     }
 
     #section1{  
-        background-color:transparent;
+        background-color:#2f8d4a;
         background-image: url('./image/laptops0.png'), url('./image/grn.png');
         background-size:100% 100%;
         background-blend-mode: multiply;
