@@ -9,7 +9,7 @@ export const render = () =>{
             <h1 class="title">Introduction</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/founder_png.png" alt="founder">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/founder_png.png" alt="founder">
             <p class="write-up write-up-outline">
                 Finally, Laptop-Folio is ready to breathe life into your computing desires, 
                 and it is awesome to have you here.
@@ -25,7 +25,7 @@ export const render = () =>{
             <h1 class="title">Mode of Operation (How I do what I do?)</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/board3.png" alt="mode-op-desc">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/board3.png" alt="mode-op-desc">
             <p class="write-up write-up-outline">
             <span class="sub-section-title">If you are curious about how I do what I do, then here is how:</span>
             <br>
@@ -42,7 +42,7 @@ export const render = () =>{
             <h1 class="title">Motivation</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/motivation.png" alt="motivation-desc">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/motivation.png" alt="motivation-desc">
             <p class="write-up write-up-outline">
                 Several Factors ought to be considered before purchasing and importing computing devices, and these factors
                 are not often limited to freight, taxation, insurance, customs duty and delivery time.
@@ -62,7 +62,7 @@ export const render = () =>{
             <h1 class="title">Value Proposition</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/value-proposition.png" alt="value-proposition-desc">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/value-proposition.png" alt="value-proposition-desc">
             <div class="write-up-outline">
                 <p class="write-up">
                 In Laptop-Folio I do what I do, knowing that several other professionals will not face what I 
@@ -91,7 +91,7 @@ export const render = () =>{
             <h1 class="title">Core Values</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/core-value.png" alt="core-value-desc">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/core-value.png" alt="core-value-desc">
             <div class="write-up-outline">
                 <ul class="write-up" style="display: grid; gap: 10px;">
                     <li><span style="background-color:red; color:whitesmoke;padding: 5px; border-radius: 5px; margin-bottom: 5px;box-shadow: 1px 2px #666;">Focus</span></li>
@@ -116,7 +116,7 @@ export const render = () =>{
             <h1 class="title">Statements</h1>
         </div>
         <section class="article">
-            <img class="main-img" src="/public/image/statement.png" alt="statement-desc">
+            <img class="main-img" src="https://richardekong007.github.io/laptomart/image/statement.png" alt="statement-desc">
             <div class="write-up-outline">
                 <div>
                 <br>
@@ -140,3 +140,4 @@ export const render = () =>{
     </section>
 </div>`;
 };
+
