@@ -1,7 +1,7 @@
 
 #container {
     background-color: #000;
-    background-image: url('./image/sky2.png'), url('./image/board.png');
+    background-image: url('https://richardekong007.github.io/laptomart/image/sky2.png'), url('https://richardekong007.github.io/laptomart/image/board.png');
     background-repeat: no-repeat;
     background-blend-mode: multiply;
     background-size: 100% 100%;
@@ -44,7 +44,7 @@ section li::before {
     width: 15px;
     background-size: cover;
     background-color: #000;
-    background-image: url('./icon/tick-mark.svg');
+    background-image: url('https://richardekong007.github.io/laptomart/icon/tick-mark.svg');
     background-repeat: no-repeat;
     border: 2px solid #fff;
     border-radius: 50%;
