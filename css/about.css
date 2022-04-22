@@ -1,10 +1,6 @@
 
 #container {
     background-color: #000;
-    background-image: url('https://richardekong007.github.io/laptomart/image/sky2.png'), url('https://richardekong007.github.io/laptomart/image/board.png');
-    background-repeat: no-repeat;
-    background-blend-mode: multiply;
-    background-size: 100% 100%;
     font-family: 'fantasy', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 10px;
 }
@@ -82,7 +78,6 @@ section li::before {
     height: 80%;
     margin: 10px 0 10px 10px;
     border-radius: 5px;
-    /*box-shadow: 2px 4px #666;*/
 }
 
 .article {
@@ -137,7 +132,6 @@ section li::before {
         height: 50%;
         margin: 1% auto;
         border-radius: 5px;
-        /*box-shadow: 2px 4px #666;*/
         display: block;
     }
 

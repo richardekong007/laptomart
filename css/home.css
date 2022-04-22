@@ -23,7 +23,6 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     height: 60vh;
     padding: 30px;
-    /*margin-top: 10px;*/
 }
 
 #headline{
@@ -63,7 +62,6 @@
     border-top:15px solid #00BFA5;
     border-bottom: 30px solid #00BFA5;
     background-color: #000;
-    background-image: url('https://richardekong007.github.io/laptomart/image/sky2.png'), url('https://richardekong007.github.io/laptomart/image/board.png');
     background-blend-mode: multiply;
     background-size: 100%;
     color: whitesmoke;
@@ -240,3 +238,4 @@
         column-count: 1;
     }
 }
+
