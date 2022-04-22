@@ -1,7 +1,7 @@
 
 #container {
     background-color: transparent;
-    background-image: url('/public/image/sky2.png'), url('/public/image/board.png');
+    background-image: url('./image/sky2.png'), url('./image/board.png');
     background-repeat: no-repeat;
     background-blend-mode: multiply;
     background-size: 100% 100%;
@@ -43,7 +43,7 @@ section li::before {
     height: 15px;
     width: 15px;
     background-size: cover;
-    background-image: url('/public/icon/tick-mark.svg');
+    background-image: url('./icon/tick-mark.svg');
     background-repeat: no-repeat;
     border: 2px solid #fff;
     border-radius: 50%;
