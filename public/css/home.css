@@ -12,7 +12,7 @@
 
 #section1{
     background-color:transparent;
-    background-image: url('/public/image/laptops0.png'), url('/public/image/grn.png');
+    background-image: url('/image/laptops0.png'), url('/image/grn.png');
     background-size:100% 100%;
     background-blend-mode: multiply;
     border-top: 30px solid #00BFA5;
@@ -63,7 +63,7 @@
     border-top:15px solid #00BFA5;
     border-bottom: 30px solid #00BFA5;
     background-color: transparent;
-    background-image: url('/public/image/sky2.png'), url('/public/image/board.png');
+    background-image: url('/image/sky2.png'), url('/image/board.png');
     background-blend-mode: multiply;
     background-size: 100%;
     color: whitesmoke;
@@ -114,7 +114,7 @@
     height: 15px;
     width: 15px;
     background-size: cover;
-    background-image: url('/public/icon/tick-mark.svg');
+    background-image: url('/icon/tick-mark.svg');
     border-radius: 50%;
     border: 2px solid #00BFA5;
     background-repeat: no-repeat;
@@ -191,7 +191,7 @@
 
     #section1{  
         background-color:transparent;
-        background-image: url('/public/image/laptops0.png'), url('/public/image/grn.png');
+        background-image: url('/image/laptops0.png'), url('/image/grn.png');
         background-size:100% 100%;
         background-blend-mode: multiply;
         height: 22vh;
