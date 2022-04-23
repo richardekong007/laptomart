@@ -1,9 +1,9 @@
 
 
 import {render} from "../template/About.js";
-import {TinyEmitter} from "tiny-emitter";
+import EventEmitter from "../EventEmitter.js";
 
-export default class About extends TinyEmitter{
+export default class About extends EventEmitter{
 
     #container;
     constructor(container){

@@ -1,9 +1,7 @@
-
-
 import {render} from "../template/Product.js";
-import {TinyEmitter} from "tiny-emitter";
+import EventEmitter from "../EventEmitter.js";
 
-export default class Product extends TinyEmitter{
+export default class Product extends EventEmitter{
 
     #container;
 

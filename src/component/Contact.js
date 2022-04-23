@@ -1,10 +1,10 @@
 
 
 import {render} from "../template/Contact.js";
-import {TinyEmitter} from "tiny-emitter";
+import EventEmitter from "../EventEmitter.js";
 
 
-export default class Contact extends TinyEmitter{
+export default class Contact extends EventEmitter{
 
     #container
 
