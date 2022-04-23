@@ -1,7 +1,7 @@
-import {TinyEmitter} from "tiny-emitter";
+import EventEmitter from "../EventEmitter";
 
 
-export default class Menu extends TinyEmitter {
+export default class Menu extends EventEmitter {
 
     #container
     static INFLATE_HOME_SECTION = "inflate-home-section";
@@ -63,15 +63,15 @@ export default class Menu extends TinyEmitter {
     #tintMenuItem = () =>{
         window.addEventListener("hashchange", (ev) =>{
             this.#container.querySelectorAll("a").forEach(anchor=>{
-                if (window.location.href !== anchor.href) {
-                    anchor.style.borderBottom = "0";
-                    anchor.style.color = "#fff";
-                    anchor.querySelector("svg *").style.fill = "#fff";
-                    anchor.querySelector("svg *").style.stroke = "#fff";
-                } else {
+                if (window.location.href === anchor.href) {
                     anchor.style.borderBottom = "5px solid #00bfa5";
                     anchor.style.color = "#00bfa5"
                     anchor.querySelector("svg *").style.fill = "#00bfa5";
+                    anchor.querySelector("svg *").style.stroke = "#fff";
+                } else {
+                    anchor.style.borderBottom = "0";
+                    anchor.style.color = "#fff";
+                    anchor.querySelector("svg *").style.fill = "#fff";
                     anchor.querySelector("svg *").style.stroke = "#fff";
                 }
             });

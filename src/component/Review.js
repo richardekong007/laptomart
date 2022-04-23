@@ -1,9 +1,7 @@
-
-
 import {render} from "../template/Review.js";
-import {TinyEmitter} from "tiny-emitter";
+import EventEmitter from "../EventEmitter.js";
 
-export default class Review extends TinyEmitter{
+export default class Review extends EventEmitter{
 
     #container;
     constructor(container) {
@@ -17,3 +15,4 @@ export default class Review extends TinyEmitter{
 
     addEventListeners = () =>{};
 }
+
