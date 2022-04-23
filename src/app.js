@@ -47,7 +47,6 @@ export default class App {
     };
 
     #productSectionInflateEvent = ()=>{
-        console.log("Listening for product section inflation ...");
         this.#product.on(Menu.INFLATE_PRODUCT_SECTION, () => this.#product.render());
     };
 
