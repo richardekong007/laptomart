@@ -214,6 +214,8 @@ var App = /*#__PURE__*/_createClass(function App(container) {
   _classPrivateFieldInitSpec(this, _productSectionInflateEvent, {
     writable: true,
     value: function value() {
+      console.log("Listening for product section inflation ...");
+
       _classPrivateFieldGet(_this, _product).on(_Menu["default"].INFLATE_PRODUCT_SECTION, function () {
         return _classPrivateFieldGet(_this, _product).render();
       });
@@ -656,15 +658,15 @@ var Menu = /*#__PURE__*/function (_TinyEmitter) {
       value: function value() {
         window.addEventListener("hashchange", function (ev) {
           _classPrivateFieldGet(_assertThisInitialized(_this), _container).querySelectorAll("a").forEach(function (anchor) {
-            if (window.location.href === anchor.href) {
-              anchor.style.borderBottom = "5px solid #00bfa5";
-              anchor.style.color = "#00bfa5";
-              anchor.querySelector("svg *").style.fill = "#00bfa5";
-              anchor.querySelector("svg *").style.stroke = "#fff";
-            } else {
+            if (window.location.href !== anchor.href) {
               anchor.style.borderBottom = "0";
               anchor.style.color = "#fff";
               anchor.querySelector("svg *").style.fill = "#fff";
+              anchor.querySelector("svg *").style.stroke = "#fff";
+            } else {
+              anchor.style.borderBottom = "5px solid #00bfa5";
+              anchor.style.color = "#00bfa5";
+              anchor.querySelector("svg *").style.fill = "#00bfa5";
               anchor.querySelector("svg *").style.stroke = "#fff";
             }
           });
@@ -917,7 +919,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.render = void 0;
 
 var render = function render() {
-  return "\n        <H1>COMMING SOON!</H1>\n    ";
+  return "\n        <H1>COMING SOON!</H1>\n    ";
 };
 
 exports.render = render;

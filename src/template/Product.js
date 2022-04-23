@@ -2,6 +2,6 @@
 
 export const render = () =>{
     return `
-        <H1>COMMING SOON!</H1>
+        <H1>COMING SOON!</H1>
     `;
 };
