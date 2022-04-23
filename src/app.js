@@ -35,31 +35,33 @@ export default class App {
     };
 
     #addEventListeners = () => {
-        this.#homeSectionInflateEvent();
-        this.#productSectionInflateEvent();
-        this.#contactSectionInflateEvent();
-        this.#reviewSectionInflateEvent();
-        this.#aboutSectionInflateEvent();
+        this.#homeMenuSectionInflateEvent();
+        this.#productMenuSectionInflateEvent();
+        this.#contactMenuSectionInflateEvent();
+        this.#reviewMenuSectionInflateEvent();
+        this.#aboutMenuSectionInflateEvent();
     };
 
-    #homeSectionInflateEvent = () =>{
-        this.#home.on(Menu.INFLATE_HOME_SECTION, () => this.#home.render());
+    #homeMenuSectionInflateEvent = () => {
+        this.#menu.on(Menu.INFLATE_HOME_SECTION, () => this.#home.render());
     };
 
-    #productSectionInflateEvent = ()=>{
-        this.#product.on(Menu.INFLATE_PRODUCT_SECTION, () => this.#product.render());
+    #productMenuSectionInflateEvent = () => {
+        this.#menu.on(Menu.INFLATE_PRODUCT_SECTION, () => {
+            this.#product.render();
+        });
     };
 
-    #contactSectionInflateEvent = () =>{
-        this.#contact.on(Menu.INFLATE_CONTACT_SECTION, () => this.#contact.render());
+    #contactMenuSectionInflateEvent = () => {
+        this.#menu.on(Menu.INFLATE_CONTACT_SECTION, () => this.#contact.render());
     };
 
-    #reviewSectionInflateEvent = () =>{
-        this.#review.on(Menu.INFLATE_REVIEW_SECTION, () => this.#review.render());
+    #reviewMenuSectionInflateEvent = () => {
+        this.#menu.on(Menu.INFLATE_REVIEW_SECTION, () => this.#review.render());
     };
 
-    #aboutSectionInflateEvent = () =>{
-        this.#about.on(Menu.INFLATE_ABOUT_SECTION, () => this.#about.render());
+    #aboutMenuSectionInflateEvent = () => {
+        this.#menu.on(Menu.INFLATE_ABOUT_SECTION, () => this.#about.render());
     };
 }
 
