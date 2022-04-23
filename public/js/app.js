@@ -70,6 +70,54 @@ module.exports.TinyEmitter = E;
 },{}],2:[function(require,module,exports){
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _tinyEmitter = require("tiny-emitter");
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var EventEmitter = /*#__PURE__*/function (_TinyEmitter) {
+  _inherits(EventEmitter, _TinyEmitter);
+
+  var _super = _createSuper(EventEmitter);
+
+  function EventEmitter() {
+    _classCallCheck(this, EventEmitter);
+
+    return _super.call(this);
+  }
+
+  return _createClass(EventEmitter);
+}(_tinyEmitter.TinyEmitter);
+
+exports["default"] = EventEmitter;
+
+},{"tiny-emitter":1}],3:[function(require,module,exports){
+"use strict";
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -127,15 +175,15 @@ var _menu = /*#__PURE__*/new WeakMap();
 
 var _addEventListeners = /*#__PURE__*/new WeakMap();
 
-var _homeSectionInflateEvent = /*#__PURE__*/new WeakMap();
+var _homeMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
-var _productSectionInflateEvent = /*#__PURE__*/new WeakMap();
+var _productMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
-var _contactSectionInflateEvent = /*#__PURE__*/new WeakMap();
+var _contactMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
-var _reviewSectionInflateEvent = /*#__PURE__*/new WeakMap();
+var _reviewMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
-var _aboutSectionInflateEvent = /*#__PURE__*/new WeakMap();
+var _aboutMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
 var App = /*#__PURE__*/_createClass(function App(container) {
   var _this = this;
@@ -190,58 +238,58 @@ var App = /*#__PURE__*/_createClass(function App(container) {
   _classPrivateFieldInitSpec(this, _addEventListeners, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _homeSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _homeMenuSectionInflateEvent).call(_this);
 
-      _classPrivateFieldGet(_this, _productSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _productMenuSectionInflateEvent).call(_this);
 
-      _classPrivateFieldGet(_this, _contactSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _contactMenuSectionInflateEvent).call(_this);
 
-      _classPrivateFieldGet(_this, _reviewSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _reviewMenuSectionInflateEvent).call(_this);
 
-      _classPrivateFieldGet(_this, _aboutSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _aboutMenuSectionInflateEvent).call(_this);
     }
   });
 
-  _classPrivateFieldInitSpec(this, _homeSectionInflateEvent, {
+  _classPrivateFieldInitSpec(this, _homeMenuSectionInflateEvent, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _home).on(_Menu["default"].INFLATE_HOME_SECTION, function () {
+      _classPrivateFieldGet(_this, _menu).on(_Menu["default"].INFLATE_HOME_SECTION, function () {
         return _classPrivateFieldGet(_this, _home).render();
       });
     }
   });
 
-  _classPrivateFieldInitSpec(this, _productSectionInflateEvent, {
+  _classPrivateFieldInitSpec(this, _productMenuSectionInflateEvent, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _product).on(_Menu["default"].INFLATE_PRODUCT_SECTION, function () {
-        return _classPrivateFieldGet(_this, _product).render();
+      _classPrivateFieldGet(_this, _menu).on(_Menu["default"].INFLATE_PRODUCT_SECTION, function () {
+        _classPrivateFieldGet(_this, _product).render();
       });
     }
   });
 
-  _classPrivateFieldInitSpec(this, _contactSectionInflateEvent, {
+  _classPrivateFieldInitSpec(this, _contactMenuSectionInflateEvent, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _contact).on(_Menu["default"].INFLATE_CONTACT_SECTION, function () {
+      _classPrivateFieldGet(_this, _menu).on(_Menu["default"].INFLATE_CONTACT_SECTION, function () {
         return _classPrivateFieldGet(_this, _contact).render();
       });
     }
   });
 
-  _classPrivateFieldInitSpec(this, _reviewSectionInflateEvent, {
+  _classPrivateFieldInitSpec(this, _reviewMenuSectionInflateEvent, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _review).on(_Menu["default"].INFLATE_REVIEW_SECTION, function () {
+      _classPrivateFieldGet(_this, _menu).on(_Menu["default"].INFLATE_REVIEW_SECTION, function () {
         return _classPrivateFieldGet(_this, _review).render();
       });
     }
   });
 
-  _classPrivateFieldInitSpec(this, _aboutSectionInflateEvent, {
+  _classPrivateFieldInitSpec(this, _aboutMenuSectionInflateEvent, {
     writable: true,
     value: function value() {
-      _classPrivateFieldGet(_this, _about).on(_Menu["default"].INFLATE_ABOUT_SECTION, function () {
+      _classPrivateFieldGet(_this, _menu).on(_Menu["default"].INFLATE_ABOUT_SECTION, function () {
         return _classPrivateFieldGet(_this, _about).render();
       });
     }
@@ -264,7 +312,7 @@ var App = /*#__PURE__*/_createClass(function App(container) {
 
 exports["default"] = App;
 
-},{"../src/component/About.js":3,"../src/component/Contact.js":4,"../src/component/Home.js":5,"../src/component/Menu.js":6,"../src/component/Product.js":7,"../src/component/Review.js":8}],3:[function(require,module,exports){
+},{"../src/component/About.js":4,"../src/component/Contact.js":5,"../src/component/Home.js":6,"../src/component/Menu.js":7,"../src/component/Product.js":8,"../src/component/Review.js":9}],4:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -276,7 +324,9 @@ exports["default"] = void 0;
 
 var _About = require("../template/About.js");
 
-var _tinyEmitter = require("tiny-emitter");
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -316,8 +366,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
-var About = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(About, _TinyEmitter);
+var About = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(About, _EventEmitter);
 
   var _super = _createSuper(About);
 
@@ -345,11 +395,11 @@ var About = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(About);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = About;
 
-},{"../template/About.js":9,"tiny-emitter":1}],4:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/About.js":10}],5:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -361,7 +411,9 @@ exports["default"] = void 0;
 
 var _Contact = require("../template/Contact.js");
 
-var _tinyEmitter = require("tiny-emitter");
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -401,8 +453,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
-var Contact = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(Contact, _TinyEmitter);
+var Contact = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Contact, _EventEmitter);
 
   var _super = _createSuper(Contact);
 
@@ -430,11 +482,11 @@ var Contact = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(Contact);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = Contact;
 
-},{"../template/Contact.js":10,"tiny-emitter":1}],5:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Contact.js":11}],6:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -444,9 +496,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _tinyEmitter = require("tiny-emitter");
-
 var _Home = require("../template/Home.js");
+
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -486,8 +540,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
-var Home = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(Home, _TinyEmitter);
+var Home = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Home, _EventEmitter);
 
   var _super = _createSuper(Home);
 
@@ -521,11 +575,11 @@ var Home = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(Home);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = Home;
 
-},{"../template/Home.js":11,"tiny-emitter":1}],6:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Home.js":12}],7:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -535,7 +589,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _tinyEmitter = require("tiny-emitter");
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -579,8 +635,8 @@ var _addEventListener = /*#__PURE__*/new WeakMap();
 
 var _tintMenuItem = /*#__PURE__*/new WeakMap();
 
-var Menu = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(Menu, _TinyEmitter);
+var Menu = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Menu, _EventEmitter);
 
   var _super = _createSuper(Menu);
 
@@ -682,7 +738,7 @@ var Menu = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(Menu);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = Menu;
 
@@ -696,7 +752,7 @@ _defineProperty(Menu, "INFLATE_REVIEW_SECTION", "inflate-review-section");
 
 _defineProperty(Menu, "INFLATE_ABOUT_SECTION", "inflate-about-section");
 
-},{"tiny-emitter":1}],7:[function(require,module,exports){
+},{"../EventEmitter":2}],8:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -708,7 +764,9 @@ exports["default"] = void 0;
 
 var _Product = require("../template/Product.js");
 
-var _tinyEmitter = require("tiny-emitter");
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -748,8 +806,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
-var Product = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(Product, _TinyEmitter);
+var Product = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Product, _EventEmitter);
 
   var _super = _createSuper(Product);
 
@@ -777,11 +835,11 @@ var Product = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(Product);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = Product;
 
-},{"../template/Product.js":12,"tiny-emitter":1}],8:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Product.js":13}],9:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -793,7 +851,9 @@ exports["default"] = void 0;
 
 var _Review = require("../template/Review.js");
 
-var _tinyEmitter = require("tiny-emitter");
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -833,8 +893,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
-var Review = /*#__PURE__*/function (_TinyEmitter) {
-  _inherits(Review, _TinyEmitter);
+var Review = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Review, _EventEmitter);
 
   var _super = _createSuper(Review);
 
@@ -862,11 +922,11 @@ var Review = /*#__PURE__*/function (_TinyEmitter) {
   }
 
   return _createClass(Review);
-}(_tinyEmitter.TinyEmitter);
+}(_EventEmitter2["default"]);
 
 exports["default"] = Review;
 
-},{"../template/Review.js":13,"tiny-emitter":1}],9:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Review.js":14}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -880,7 +940,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -894,7 +954,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -908,7 +968,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -922,7 +982,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -936,7 +996,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 
 var _app = _interopRequireDefault(require("./app.js"));
@@ -948,4 +1008,4 @@ window.onload = function () {
   new _app["default"](main).init();
 };
 
-},{"./app.js":2}]},{},[14]);
+},{"./app.js":3}]},{},[15]);
