@@ -4,6 +4,7 @@ import Review from "../src/component/Review.js";
 import Product from "../src/component/Product.js";
 import Contact from "../src/component/Contact.js";
 import Menu from "../src/component/Menu.js";
+import ReviewDialog from "../src/component/ReviewDialog.js";
 
 export default class App {
 
@@ -14,6 +15,7 @@ export default class App {
     #product;
     #contact;
     #menu;
+    #reviewDialog;
 
     constructor(container) {
         this.#container = container;
@@ -23,6 +25,7 @@ export default class App {
         this.#product = new Product(this.#container);
         this.#contact = new Contact(this.#container);
         this.#menu = new Menu();
+        this.#reviewDialog = new ReviewDialog(this.#container);
     }
 
     init = () => {
@@ -35,11 +38,18 @@ export default class App {
     };
 
     #addEventListeners = () => {
+
+        //menu events
         this.#homeMenuSectionInflateEvent();
         this.#productMenuSectionInflateEvent();
         this.#contactMenuSectionInflateEvent();
         this.#reviewMenuSectionInflateEvent();
         this.#aboutMenuSectionInflateEvent();
+
+        //Review dialog events
+        this.#createReviewDialogEvent();
+        this.#closeReviewDialogEvent();
+
     };
 
     #homeMenuSectionInflateEvent = () => {
@@ -63,5 +73,12 @@ export default class App {
     #aboutMenuSectionInflateEvent = () => {
         this.#menu.on(Menu.INFLATE_ABOUT_SECTION, () => this.#about.render());
     };
+
+    #createReviewDialogEvent = () =>{
+        this.#review.on(Review.CREATE_REVIEW, () => this.#reviewDialog.inflate());
+    };
+
+    #closeReviewDialogEvent = () => this.#reviewDialog.on(ReviewDialog.CLOSE_REVIEW_DIALOG, () => this.#reviewDialog.dismiss());
+
 }
 

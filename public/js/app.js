@@ -135,6 +135,8 @@ var _Contact = _interopRequireDefault(require("../src/component/Contact.js"));
 
 var _Menu = _interopRequireDefault(require("../src/component/Menu.js"));
 
+var _ReviewDialog = _interopRequireDefault(require("../src/component/ReviewDialog.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -173,6 +175,8 @@ var _contact = /*#__PURE__*/new WeakMap();
 
 var _menu = /*#__PURE__*/new WeakMap();
 
+var _reviewDialog = /*#__PURE__*/new WeakMap();
+
 var _addEventListeners = /*#__PURE__*/new WeakMap();
 
 var _homeMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
@@ -184,6 +188,10 @@ var _contactMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 var _reviewMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
 
 var _aboutMenuSectionInflateEvent = /*#__PURE__*/new WeakMap();
+
+var _createReviewDialogEvent = /*#__PURE__*/new WeakMap();
+
+var _closeReviewDialogEvent = /*#__PURE__*/new WeakMap();
 
 var App = /*#__PURE__*/_createClass(function App(container) {
   var _this = this;
@@ -225,6 +233,11 @@ var App = /*#__PURE__*/_createClass(function App(container) {
     value: void 0
   });
 
+  _classPrivateFieldInitSpec(this, _reviewDialog, {
+    writable: true,
+    value: void 0
+  });
+
   _defineProperty(this, "init", function () {
     _this.render();
 
@@ -238,6 +251,7 @@ var App = /*#__PURE__*/_createClass(function App(container) {
   _classPrivateFieldInitSpec(this, _addEventListeners, {
     writable: true,
     value: function value() {
+      //menu events
       _classPrivateFieldGet(_this, _homeMenuSectionInflateEvent).call(_this);
 
       _classPrivateFieldGet(_this, _productMenuSectionInflateEvent).call(_this);
@@ -246,7 +260,12 @@ var App = /*#__PURE__*/_createClass(function App(container) {
 
       _classPrivateFieldGet(_this, _reviewMenuSectionInflateEvent).call(_this);
 
-      _classPrivateFieldGet(_this, _aboutMenuSectionInflateEvent).call(_this);
+      _classPrivateFieldGet(_this, _aboutMenuSectionInflateEvent).call(_this); //Review dialog events
+
+
+      _classPrivateFieldGet(_this, _createReviewDialogEvent).call(_this);
+
+      _classPrivateFieldGet(_this, _closeReviewDialogEvent).call(_this);
     }
   });
 
@@ -295,6 +314,24 @@ var App = /*#__PURE__*/_createClass(function App(container) {
     }
   });
 
+  _classPrivateFieldInitSpec(this, _createReviewDialogEvent, {
+    writable: true,
+    value: function value() {
+      _classPrivateFieldGet(_this, _review).on(_Review["default"].CREATE_REVIEW, function () {
+        return _classPrivateFieldGet(_this, _reviewDialog).inflate();
+      });
+    }
+  });
+
+  _classPrivateFieldInitSpec(this, _closeReviewDialogEvent, {
+    writable: true,
+    value: function value() {
+      return _classPrivateFieldGet(_this, _reviewDialog).on(_ReviewDialog["default"].CLOSE_REVIEW_DIALOG, function () {
+        return _classPrivateFieldGet(_this, _reviewDialog).dismiss();
+      });
+    }
+  });
+
   _classPrivateFieldSet(this, _container, container);
 
   _classPrivateFieldSet(this, _home, new _Home["default"](_classPrivateFieldGet(this, _container)));
@@ -308,11 +345,13 @@ var App = /*#__PURE__*/_createClass(function App(container) {
   _classPrivateFieldSet(this, _contact, new _Contact["default"](_classPrivateFieldGet(this, _container)));
 
   _classPrivateFieldSet(this, _menu, new _Menu["default"]());
+
+  _classPrivateFieldSet(this, _reviewDialog, new _ReviewDialog["default"](_classPrivateFieldGet(this, _container)));
 });
 
 exports["default"] = App;
 
-},{"../src/component/About.js":4,"../src/component/Contact.js":5,"../src/component/Home.js":6,"../src/component/Menu.js":7,"../src/component/Product.js":8,"../src/component/Review.js":9}],4:[function(require,module,exports){
+},{"../src/component/About.js":4,"../src/component/Contact.js":5,"../src/component/Home.js":7,"../src/component/Menu.js":8,"../src/component/Product.js":9,"../src/component/Review.js":10,"../src/component/ReviewDialog.js":11}],4:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -399,7 +438,7 @@ var About = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = About;
 
-},{"../EventEmitter.js":2,"../template/About.js":10}],5:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/About.js":12}],5:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -486,7 +525,84 @@ var Contact = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = Contact;
 
-},{"../EventEmitter.js":2,"../template/Contact.js":11}],6:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Contact.js":13}],6:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _EventEmitter2 = _interopRequireDefault(require("../EventEmitter.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Dialog = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Dialog, _EventEmitter);
+
+  var _super = _createSuper(Dialog);
+
+  function Dialog(container) {
+    var _this;
+
+    _classCallCheck(this, Dialog);
+
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "_container", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_containerId", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_overlayId", "overlay");
+
+    _defineProperty(_assertThisInitialized(_this), "_overlayClass", "overlay");
+
+    _defineProperty(_assertThisInitialized(_this), "_url", void 0);
+
+    _defineProperty(_assertThisInitialized(_this), "_createOverlay", function () {});
+
+    _defineProperty(_assertThisInitialized(_this), "inflate", function () {});
+
+    _defineProperty(_assertThisInitialized(_this), "dismiss", function () {});
+
+    _this._container = container;
+    _this._containerId = container.id;
+
+    _this._createOverlay();
+
+    return _this;
+  }
+
+  return _createClass(Dialog);
+}(_EventEmitter2["default"]);
+
+exports["default"] = Dialog;
+
+},{"../EventEmitter.js":2}],7:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -579,7 +695,7 @@ var Home = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = Home;
 
-},{"../EventEmitter.js":2,"../template/Home.js":12}],7:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Home.js":14}],8:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -752,7 +868,7 @@ _defineProperty(Menu, "INFLATE_REVIEW_SECTION", "inflate-review-section");
 
 _defineProperty(Menu, "INFLATE_ABOUT_SECTION", "inflate-about-section");
 
-},{"../EventEmitter":2}],8:[function(require,module,exports){
+},{"../EventEmitter":2}],9:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -839,7 +955,7 @@ var Product = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = Product;
 
-},{"../EventEmitter.js":2,"../template/Product.js":13}],9:[function(require,module,exports){
+},{"../EventEmitter.js":2,"../template/Product.js":15}],10:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -893,6 +1009,10 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _container = /*#__PURE__*/new WeakMap();
 
+var _addEventListeners = /*#__PURE__*/new WeakMap();
+
+var _createReviewClick = /*#__PURE__*/new WeakMap();
+
 var Review = /*#__PURE__*/function (_EventEmitter) {
   _inherits(Review, _EventEmitter);
 
@@ -912,9 +1032,27 @@ var Review = /*#__PURE__*/function (_EventEmitter) {
 
     _defineProperty(_assertThisInitialized(_this), "render", function () {
       _classPrivateFieldGet(_assertThisInitialized(_this), _container).innerHTML = (0, _Review.render)();
+
+      _classPrivateFieldGet(_assertThisInitialized(_this), _addEventListeners).call(_assertThisInitialized(_this));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "addEventListeners", function () {});
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _addEventListeners, {
+      writable: true,
+      value: function value() {
+        _classPrivateFieldGet(_assertThisInitialized(_this), _createReviewClick).call(_assertThisInitialized(_this));
+      }
+    });
+
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _createReviewClick, {
+      writable: true,
+      value: function value() {
+        var createButton = _classPrivateFieldGet(_assertThisInitialized(_this), _container).querySelector("#create-button-container");
+
+        createButton.addEventListener("click", function (_ev) {
+          _this.emit(Review.CREATE_REVIEW);
+        });
+      }
+    });
 
     _classPrivateFieldSet(_assertThisInitialized(_this), _container, container);
 
@@ -926,7 +1064,150 @@ var Review = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = Review;
 
-},{"../EventEmitter.js":2,"../template/Review.js":14}],10:[function(require,module,exports){
+_defineProperty(Review, "CREATE_REVIEW", "create-review");
+
+},{"../EventEmitter.js":2,"../template/Review.js":16}],11:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _ReviewDialog = require("../template/ReviewDialog.js");
+
+var _Dialog2 = _interopRequireDefault(require("./Dialog.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+var _styleOverlay = /*#__PURE__*/new WeakMap();
+
+var _addEventListeners = /*#__PURE__*/new WeakMap();
+
+var _closeReviewDialogEvent = /*#__PURE__*/new WeakMap();
+
+var ReviewDialog = /*#__PURE__*/function (_Dialog) {
+  _inherits(ReviewDialog, _Dialog);
+
+  var _super = _createSuper(ReviewDialog);
+
+  function ReviewDialog(container) {
+    var _this;
+
+    _classCallCheck(this, ReviewDialog);
+
+    _this = _super.call(this, container);
+
+    _defineProperty(_assertThisInitialized(_this), "_createOverlay", function () {
+      var overlay = document.createElement("div");
+      var dialogContainer = document.createElement("div");
+      overlay.id = _this._overlayId;
+      overlay.className = _this._overlayClass;
+
+      _classPrivateFieldGet(_assertThisInitialized(_this), _styleOverlay).call(_assertThisInitialized(_this), overlay);
+
+      dialogContainer.id = "dialog-container";
+      dialogContainer.innerHTML = (0, _ReviewDialog.render)();
+      overlay.append(dialogContainer);
+
+      _this._container.append(overlay);
+
+      _classPrivateFieldGet(_assertThisInitialized(_this), _addEventListeners).call(_assertThisInitialized(_this));
+    });
+
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _styleOverlay, {
+      writable: true,
+      value: function value(overlay) {
+        overlay.style.backgroundColor = "#000";
+        overlay.style.opacity = "0.8";
+        overlay.style.filter = "alpha(opacity=80)";
+        overlay.style.position = "absolute";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.zIndex = "10";
+      }
+    });
+
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _addEventListeners, {
+      writable: true,
+      value: function value() {
+        _classPrivateFieldGet(_assertThisInitialized(_this), _closeReviewDialogEvent).call(_assertThisInitialized(_this));
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "inflate", function () {
+      _this._createOverlay();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "dismiss", function () {
+      var overlay = document.getElementById(_this._overlayId);
+      var dialogContainer = document.querySelector("#dialog-container");
+      overlay.removeChild(dialogContainer);
+
+      _this._container.removeChild(overlay);
+    });
+
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _closeReviewDialogEvent, {
+      writable: true,
+      value: function value() {
+        var cancelButton = document.querySelector("#review-form-close-btn");
+        var closeButton = document.querySelector("#cancel");
+        cancelButton.addEventListener("click", function (ev) {
+          return _this.emit(ReviewDialog.CLOSE_REVIEW_DIALOG);
+        });
+        closeButton.addEventListener("click", function (ev) {
+          return _this.emit(ReviewDialog.CLOSE_REVIEW_DIALOG);
+        });
+      }
+    });
+
+    return _this;
+  }
+
+  return _createClass(ReviewDialog);
+}(_Dialog2["default"]);
+
+exports["default"] = ReviewDialog;
+
+_defineProperty(ReviewDialog, "CLOSE_REVIEW_DIALOG", "close-review-dialog");
+
+},{"../template/ReviewDialog.js":17,"./Dialog.js":6}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -940,7 +1221,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -954,7 +1235,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -968,7 +1249,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -982,7 +1263,7 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -996,7 +1277,21 @@ var render = function render() {
 
 exports.render = render;
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.render = void 0;
+
+var render = function render() {
+  return "\n    <div id=\"review-dialog\">\n                <div id=\"review-form-header\">\n                    <span id=\"review-form-header-title\">What do like about the products and service?</span>\n                    <span id=\"review-form-close-btn\">\n                        <svg width=\"16\" height=\"16\" viewBox=\"0 0 185.208 185.208\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(952.567 -1192.557)\"><path d=\"M-172.905-1050.923c3.398-2.537 2.999-7.828 0-10.827l-36.204-36.205c-3-2.999-7.829-2.999-10.828 0l-58.717 58.615-58.638 58.536c-3.025 18.772-6.13 37.622-9.156 56.394l56.181-9.368c30.373-30.373 44.725-44.671 59.212-59.103 14.486-14.432 28.733-28.625 58.15-58.042z\" opacity=\"1\" fill=\"#f00\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><rect height=\"67.307\" ry=\"5.082\" transform=\"rotate(135)\" width=\"11.067\" x=\"-601.165\" y=\"865.359\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></rect><path d=\"m-312.874-925.234-32.299-32.298-1.275 33.122z\" fill=\"#ffffff\" stroke=\"none\" stroke-width=\".26458332px\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-opacity=\"1\" class=\"fill-000000\"></path><rect height=\"67.307\" ry=\"5.082\" transform=\"rotate(135)\" width=\"11.067\" x=\"-467.454\" y=\"865.783\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></rect></g><g transform=\"translate(221.447 -535.307)\"><ellipse cx=\"-352.555\" cy=\"-1716.312\" rx=\"5.334\" ry=\"5.342\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></ellipse><path d=\"M-352.555-1698.49v37.859\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-436.722-1743.288a3.806 3.806 0 0 0-3.807 3.822v103.568a3.807 3.807 0 0 0 3.807 3.823h23.24v36.286l71.375-36.286h73.718a3.807 3.807 0 0 0 3.808-3.823v-103.568a3.807 3.807 0 0 0-3.808-3.822z\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path></g><path d=\"M-1849.964-304.31h41.123l69.633-108.803h65.031M-1674.177-413.113l-39.659-19.993M-1674.177-413.113l-39.659 19.993M-1674.177-304.31l-39.659-19.993M-1674.177-304.31l-39.659 19.993\" transform=\"translate(794.623 -642.487)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-1850.01-413.105h41.122l69.633 108.803h65.031\" transform=\"translate(794.623 -642.487)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-867.121-414.187h104.674a6.063 6.063 0 0 1 6.088 6.065v144.094a6.063 6.063 0 0 1-6.088 6.064h-104.674a6.063 6.063 0 0 1-6.088-6.064v-144.094a6.063 6.063 0 0 1 6.088-6.065z\" transform=\"translate(-152.686 -1062.231)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-872.764-428.604h116.317M-847.834-394.01v115.87M-814.784-394.01v115.87M-781.734-394.01v115.87M-831.685-433.911h34.16\" transform=\"translate(-152.686 -1062.231)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-508.094-666.261v50.635c0 1.263-.843 2.28-1.89 2.28h-172.174c-1.047 0-1.89-1.017-1.89-2.28v-50.635\" transform=\"translate(-1598.046 -706.143)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-155.801-47.138v-150.835M-155.801-197.973l-43.482 44.424M-155.801-197.973l43.481 44.424\" transform=\"matrix(1 0 0 -1 -2038.315 -1543.921)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-190.138-620.904v-175.781M-154.995-620.804h-70.287M-154.995-796.785h-70.286\" transform=\"translate(-1608.223 -699.374)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-1004.936-1676.12h175.823M-1004.936-1735.305h175.823M-1004.936-1616.934h175.823\" transform=\"translate(394.573 -528.726)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g stroke-width=\".69996077\"><path d=\"M-127.05-111.185v84.94h-97.204v-120.686 0h59.76\" transform=\"matrix(1.40223 0 0 1.45557 910.18 -1653.36)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"6.48192835\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-128.344-109.95h-36.15c-.717 0-1.294-.55-1.294-1.235v-34.51c0-.685.577-1.236 1.294-1.236l37.444 35.746c0 .684-.577 1.235-1.294 1.235z\" transform=\"matrix(1.40223 0 0 1.45557 910.18 -1653.36)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"6.48192835\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path></g><g stroke-width=\".71462166\"><g stroke-width=\".87175673\"><path d=\"M1064.034-145.824v108.35h-118.37v-153.947 0h72.773\" transform=\"matrix(1.15126 0 0 1.14297 -1679.299 -1277.358)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"8.0728302\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M1062.458-144.248h-44.021a1.572 1.572 0 0 1-1.576-1.576v-44.021c0-.873.703-1.576 1.576-1.576l45.597 45.597c0 .873-.703 1.576-1.576 1.576z\" transform=\"matrix(1.15126 0 0 1.14297 -1679.299 -1277.358)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"8.0728302\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path></g><path d=\"M-203.727-65.836h56.15M-203.727-86.588h56.15M-203.727-45.084h56.15\" transform=\"matrix(1.40338 0 0 1.39531 -274.77 -1289.345)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"6.61769342\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M-1479.304-1348.614h131.96l43.988 43.987v131.961h-175.948v-175.948z\" transform=\"translate(848.772 -518.755)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1427.669-1348.614h72.677v47.425h-72.677z\" transform=\"translate(848.772 -518.755)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1377.394-1332.878v15.496\" transform=\"translate(848.772 -518.755)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g stroke-width=\".86788404\"><path d=\"M-3414.003 67.181h98.601v61.57h-98.601z\" transform=\"matrix(1.15223 0 0 1.15223 3334.345 -1839.771)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"8.03696728\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><g stroke-width=\".86788404\"><path d=\"M-3332.235 86.816h-64.935M-3332.235 109.116h-64.935\" transform=\"matrix(1.15223 0 0 1.15223 3334.345 -1839.771)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"8.03696823\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g></g><path d=\"M-270.94-413.34v22.494m-104.458 0v-62.72h64.22\" transform=\"translate(1470.528 -1839.253)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-272.332-411.949h-38.847c-.77 0-1.39-.62-1.39-1.39v-38.837c0-.77.62-1.39 1.39-1.39l40.238 40.227c0 .77-.62 1.39-1.39 1.39z\" transform=\"translate(1470.528 -1839.253)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-263.93-373.522h12.753\" transform=\"translate(1470.528 -1839.253)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-374.822-325.246h-36.322v-64.504h175.948v64.504h-33.492\" transform=\"translate(1470.528 -1839.253)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-181.739-68.86h60.34M-181.739-50.007h60.34\" transform=\"translate(1298.927 -2087.982)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-204.636-89.977h106.135v61.087h-106.135z\" transform=\"translate(1298.927 -2087.982)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041698\" stroke-linecap=\"butt\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"m-1479.199 143.768 175.855-175.855M-1479.199-32.087l175.855 175.855\" transform=\"translate(1483.876 36.764)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(482.298 -865.099)\"><ellipse cx=\"-344.666\" cy=\"-2283.139\" rx=\"57.372\" ry=\"56.435\" transform=\"rotate(-45.005)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m-1738.941-1251.822-79.106-79.12\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M-925.982-1197.013h-35.149v-18.315 0h35.149z\" transform=\"translate(1230.336 -652.04)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-80.133-22.106h-142.87v-157.632 0h142.87z\" transform=\"translate(438.348 -1669.315)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-106.552-167.136h-90.033v-6.89 0h90.033z\" transform=\"translate(438.348 -1669.315)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><g stroke-width=\".85923588\"><path d=\"M-3788.422-212.559h68.377M-3788.422-237.183h68.377M-3788.422-187.934h68.377M-3788.991-163.31h68.377\" transform=\"matrix(1.16492 0 0 1.16273 4660.502 -1532.594)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"7.956882\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><g transform=\"translate(-1540.737 -705.196)\"><ellipse cx=\"704.225\" cy=\"-258.695\" rx=\"23.977\" ry=\"23.822\" transform=\"matrix(.5075 -.86165 .8703 .49253 0 0)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26110744\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m185.263-702.973-32.843-18.586\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><ellipse cx=\"-519.544\" cy=\"454.936\" rx=\"23.977\" ry=\"23.822\" transform=\"matrix(.5075 .86165 .8703 -.49253 0 0)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26110744\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m185.263-702.973-32.843 18.587M185.27-702.97l98.805-29.777M185.27-702.97l98.805 29.778\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><g transform=\"matrix(1.5227 0 0 1.52124 316.385 -1420.395)\" stroke-width=\".65704465\"><path d=\"M-5468.298 2139.315v-72.696M-5468.298 2503.45v-246.957\" transform=\"matrix(.26458 0 0 .26458 -244.173 -97.607)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"22.99656296\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><circle cx=\"-1690.993\" cy=\"483.921\" r=\"15.502\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"6.08450699\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></circle></g><g transform=\"matrix(1.5227 0 0 1.52124 318.893 -1420.395)\" stroke-width=\".65704465\"><path d=\"M-5314.755 2305.239v-238.62M-5314.755 2503.45v-81.033\" transform=\"matrix(.26458 0 0 .26458 -244.173 -97.607)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"22.99656296\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><circle cx=\"-1650.368\" cy=\"527.822\" r=\"15.502\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"6.08450699\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></circle></g><g transform=\"matrix(1.5227 0 0 1.52124 274.192 -1418.768)\" stroke-width=\".65704465\"><path d=\"M-5044.034 2186.723v-124.144M-5044.034 2499.41V2303.9\" transform=\"matrix(.26458 0 0 .26458 -244.173 -97.607)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"22.99656296\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><circle cx=\"-1578.74\" cy=\"496.465\" r=\"15.502\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"6.08450699\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></circle></g><path d=\"M-2262.117-1850.649h116.03v175.953h-116.03z\" transform=\"translate(15.946 -16.722)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-2212.108-1762.673h132.042M-2080.066-1762.673l-38.89 38.051M-2080.066-1762.673l-38.89-38.051\" transform=\"translate(15.946 -16.722)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-1895.171-1873.834h116.03v175.953h-116.03z\" transform=\"translate(28.646 6.463)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1713.12-1785.858h-132.043M-1845.162-1785.858l38.889 38.051M-1845.162-1785.858l38.889-38.051\" transform=\"translate(28.646 6.463)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-822.946-666.604v50.635c0 1.263-.843 2.28-1.89 2.28H-997.01c-1.047 0-1.89-1.017-1.89-2.28v-50.635\" transform=\"translate(-1649.078 -705.8)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-155.801-47.138v-150.835M-155.801-197.973l-43.482 44.424M-155.801-197.973l43.481 44.424\" transform=\"translate(-2404.2 -1298.81)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M292.199-1203.883H467.98\" transform=\"translate(244.173 202.685)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-239.46-110.08h175.783M-151.568-197.971V-22.19\" transform=\"translate(398.735 -891.118)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(-156.902 -990.181)\"><ellipse cx=\"-840.6\" cy=\"-2602.197\" rx=\"57.372\" ry=\"56.435\" transform=\"rotate(-45.005)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m-2315.174-1126.74-79.106-79.12M-2472.248-1245.753h76.1M-2434.198-1283.803v76.1\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><g transform=\"translate(307.534 -899.31)\"><ellipse cx=\"-566.176\" cy=\"-2456.273\" rx=\"57.372\" ry=\"56.435\" transform=\"rotate(-45.005)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m-2017.97-1217.612-79.106-79.12M-2175.044-1336.625h76.099\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><g transform=\"translate(236.723 -619.44)\"><text style=\"line-height:3.3499999\" x=\"-2507.133\" xml:space=\"preserve\" y=\"-1592.797\" font-style=\"normal\" font-weight=\"400\" font-size=\"64.96838379px\" font-family=\"sans-serif\" letter-spacing=\"0\" word-spacing=\"0\" fill=\"#ffffff\" fill-opacity=\"1\" stroke=\"none\" stroke-width=\".26458332\" class=\"fill-000000\"></text><ellipse cx=\"-598.089\" cy=\"-2883.944\" rx=\"57.372\" ry=\"56.435\" transform=\"rotate(-45.005)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m-2342.916-1497.48-79.105-79.121\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M228.714-496.777h153.947v153.947H228.714z\" transform=\"translate(-2876.688 -218.362)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M250.714-496.777v-22 0h153.948v153.947H382.66\" transform=\"translate(-2876.688 -218.362)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M392.743-12.28h-71.21c-61.035 0-61.035-93.207 5.201-93.207H452.286M452.285-105.487l-38.889 38.051M452.285-105.487l-38.889-38.051\" transform=\"translate(-68.211 -1330.237)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-460.409-314.904h71.21c61.035 0 61.035-93.208-5.202-93.208h-125.551M-519.952-408.112l38.89 38.051M-519.952-408.112l38.89-38.05\" transform=\"translate(300.927 -1027.612)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M184.027-110.906 88.823-22.978M184.027-110.906l-95.204-87.929\" transform=\"translate(-1480.992 -890.292)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"m-179.326-367.222 95.203 87.928M-179.326-367.222l95.203-87.929\" transform=\"translate(-2428.276 -633.976)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g stroke-width=\".97482073\"><path d=\"m-158.467 96.672 38.89 38.05M-158.467 96.672l38.89-38.052\" transform=\"matrix(1.02602 0 0 1.02564 -36.933 -1149.25)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.02724552\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M-629.803-110.386c0 27.68 16.681 52.636 42.264 63.229 25.583 10.593 55.03 4.738 74.611-14.836 19.58-19.573 25.438-49.01 14.841-74.583-10.597-25.574-35.13-42.246-62.82-42.246l-68.843.003\" transform=\"translate(430.232 -871.275)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-1528.327-888.418h-175.95l90.042-75.866zm-106.818 100.074h-46.533v-100.074h129.18v100.074h-46.533m-36.115-.118v-48.06 0h36.115v48.06\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><g stroke-width=\".97482073\"><path d=\"m-158.467 96.672 38.89 38.05M-158.467 96.672l38.89-38.052\" transform=\"matrix(-1.02602 0 0 1.02564 -616.627 -1149.25)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.02724552\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M-740.528-110.386c0 27.68-16.68 52.636-42.263 63.229-25.584 10.593-55.03 4.738-74.611-14.836-19.58-19.573-25.438-49.01-14.841-74.583 10.596-25.574 35.13-42.246 62.82-42.246l68.842.003\" transform=\"translate(286.538 -871.275)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(3.226 -934.832)\"><circle cx=\"-690.901\" cy=\"-1105.169\" r=\"87.974\" transform=\"rotate(45)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></circle><circle cx=\"-690.901\" cy=\"-1105.169\" r=\"59.536\" transform=\"rotate(45)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></circle><path d=\"m335.03-1227.915 20.05 20.05M230.783-1332.162l20.05 20.05M250.833-1227.915l-20.05 20.05M355.08-1332.162l-20.05 20.05\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><g transform=\"translate(-47.294 -955.833)\"><ellipse cx=\"452.398\" cy=\"693.554\" rx=\"31.199\" ry=\"31.635\" transform=\"rotate(-90.006) skewX(-.011)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m837.762-452.34-112.587-.006M781.102-426.26l.006-26.059M799.03-430.775l.006-21.572M816.957-426.283l.006-26.058\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"m-112.512-183.042 38.32 95.425 102.595 6.956-78.912 65.932 25.087 99.723-87.09-54.676-87.09 54.676 25.088-99.723-78.913-65.932 102.595-6.956z\" transform=\"matrix(.62427 0 0 .62366 1139.519 -970.624)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"14.84131432\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><g transform=\"translate(242.764 -1331.016)\"><ellipse cx=\"518.3\" cy=\"619.601\" rx=\"23.977\" ry=\"23.822\" transform=\"matrix(.5075 -.86165 .8703 .49253 0 0)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26110744\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><ellipse cx=\"406.422\" cy=\"684.842\" rx=\"23.977\" ry=\"23.822\" transform=\"matrix(.5075 -.86165 .8703 .49253 0 0)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26110744\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><ellipse cx=\"525.334\" cy=\"762.389\" rx=\"23.977\" ry=\"23.822\" transform=\"matrix(.5075 -.86165 .8703 .49253 0 0)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26110744\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"m827.84-128.567 76.632 38.525M823.824-23.72l84.74-42.6\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"m18.24-367.222 95.203-87.929M18.24-367.222l95.203 87.928\" transform=\"rotate(90 -747.15 -1814.189)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"m18.24-367.222 95.203-87.929M18.24-367.222l95.203 87.928\" transform=\"matrix(0 -1 -1 0 -2165.583 -935.357)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"m-179.326-367.222 95.203-62.485M-179.326-367.222l95.203 62.484\" transform=\"translate(-833.61 -302.174)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M1800.444-591.196v175.857\" transform=\"translate(-2822.69 -166.129)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"miter\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"m-179.326-367.222 95.203-62.485M-179.326-367.222l95.203 62.484\" transform=\"matrix(-1 0 0 1 -729.548 -310.64)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-348.818-389.608v175.857\" transform=\"translate(-192.094 -376.183)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"miter\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(1672.474 -501.928)\"><ellipse cx=\"-1833.87\" cy=\"-222.459\" rx=\"41.306\" ry=\"41.449\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse><path d=\"M-1921.576-88.029h175.413m-175.413 0a87.974 86.257 0 0 1-.268-6.724 87.974 86.257 0 0 1 87.974-86.257 87.974 86.257 0 0 1 87.975 86.257v0a87.974 86.257 0 0 1-.268 6.726\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"M16.193-908.36c-5.38-20.223-23.863-34.319-45.004-34.319-1.688 0-3.375.091-5.053.273m-39.875 34.013c-.523-.02-1.047-.03-1.57-.03-22.902 0-41.467 18.365-41.467 41.018 0 9.846 2.163 21.36 10.074 26.799 42.647 29.32 113.167 29.327 155.81 0 7.91-5.44 10.064-16.953 10.064-26.799 0-22.653-18.565-41.017-41.466-41.017-.524 0-1.047.01-1.57.029m-89.932.034c5.379-20.224 23.863-34.32 45.003-34.32 1.688 0 3.376.091 5.054.273M-429.927-2070.053h175.948v175.948h-175.948z\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><g opacity=\"1\"><path d=\"M-516.693-200.039h25.929v25.929h-25.929zM-462.983-200.039h25.929v25.929h-25.929zM-409.273-200.039h25.929v25.929h-25.929zM-516.693-142.889h25.929v25.929h-25.929zM-462.983-142.889h25.929v25.929h-25.929zM-409.273-142.889h25.929v25.929h-25.929z\" transform=\"translate(352.238 -1620.896)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path></g><path d=\"M-429.927-2051.751h175.948v139.344h-175.948z\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1630.547-1101.345h116.03v175.953h-116.03z\" transform=\"translate(178.802 -766.026)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1696.568-1013.369h132.042M-1564.526-1013.369l-38.889 38.051M-1564.526-1013.369l-38.889-38.05\" transform=\"translate(178.802 -766.026)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M-2486.665-2693.843h116.03v175.953h-116.03z\" transform=\"translate(1440.261 826.472)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"6.19999981\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-2420.644-2605.867h-132.042M-2552.686-2605.867l38.89 38.05M-2552.686-2605.867l38.89-38.051\" transform=\"translate(1440.261 826.472)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(100.233 -233.208)\"><path d=\"M510.393-419.255h99.06M510.393-478.44h99.06M510.393-360.07h99.06\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><circle cx=\"491.237\" cy=\"-478.44\" r=\"4.63\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></circle><circle cx=\"491.237\" cy=\"-419.255\" r=\"4.63\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></circle><circle cx=\"491.237\" cy=\"-360.069\" r=\"4.63\" opacity=\"1\" fill=\"#ffffff\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"none\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"bevel\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"fill-000000\"></circle><path d=\"M433.623-419.255h38.457M433.623-478.44h38.457M433.623-360.07h38.457\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path></g><path d=\"m-2794.504-2031.083-21.048-23.28h-35.36m-32.911 23.28 21.048-23.28h35.36m111.216 144.568h-175.948v-121.288h175.948v121.288z\" transform=\"translate(244.173 202.685)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><path d=\"M744.321-2034.872h175.948v105.584H744.321z\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041508\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"m920.269-2034.872-175.962-.336 87.69 78.01z\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"m803.846-1981.917-59.54 52.966 175.963-.337-59.796-52.617-28.461 25.044z\" transform=\"translate(244.173 202.685)\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><path d=\"M-1185.807-2341.564v-133.063h-42.622v155.069h61.812v-175.943h-83.078v153.938\" transform=\"translate(244.173 202.685)\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-opacity=\"1\" class=\"stroke-000000\"></path><g transform=\"translate(278.302 196.1)\"><path d=\"M763.417-840.016a150.885 154.112 0 0 1 50.689-8.956 150.885 154.112 0 0 1 50.686 8.955M744.758-872.992a187.686 191.7 0 0 1 69.355-13.569 187.686 191.7 0 0 1 69.338 13.562M726.192-905.84a224.488 229.289 0 0 1 87.901-18.31 224.488 229.289 0 0 1 87.923 18.319\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></path><ellipse cx=\"814.104\" cy=\"-798.318\" rx=\"18.761\" ry=\"18.767\" opacity=\"1\" fill=\"none\" fill-opacity=\"1\" fill-rule=\"nonzero\" stroke=\"#ffffff\" stroke-width=\"9.26041603\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"4\" stroke-dasharray=\"none\" stroke-dashoffset=\"0\" stroke-opacity=\"1\" paint-order=\"normal\" class=\"stroke-000000\"></ellipse></g></svg>\n                    </span>\n                </div>\n                <div id=\"review-form-container\">\n                    <form action=\"\">\n                        <label for=\"comment\">Comment:</label><br>\n                        <textarea id=\"comment-input\" name=\"comment\" rows=\"10\"></textarea><br><br>\n                        <label>How would you rate the products and service?</label>\n                        <div class=\"review-form-rating-bar\">\n                            <div class=\"star\"></div>\n                            <div class=\"star\"></div>\n                            <div class=\"star\"></div>\n                            <div class=\"star\"></div>\n                            <div class=\"star\"></div>\n                        </div> \n                        <div id=\"review-form-bottom\">\n                            <span class=\"empty-space\"></span>\n                            <button id=\"cancel\">\n                                <svg width=\"16\" height=\"16\" viewBox=\"0 0 48 48\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm10 27.17L31.17 34 24 26.83 16.83 34 14 31.17 21.17 24 14 16.83 16.83 14 24 21.17 31.17 14 34 16.83 26.83 24 34 31.17z\" fill=\"#00bfa5\" class=\"fill-000000\"></path><path d=\"M0 0h48v48H0z\" fill=\"none\"></path></svg>\n                                <span>Cancel</span>\n                            </button>\n                            <button id=\"post\">\n                                <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xml:space=\"preserve\" xmlns=\"http://www.w3.org/2000/svg\" enable-background=\"new 0 0 16 16\"><path d=\"M5 9v5l4-3 4 5 3-16L0 8z\" fill=\"#ffffff\" class=\"fill-000000\"></path></svg>\n                                <span>Post</span> \n                            </button> \n                        </div>\n                    </form>\n                </div>\n    </div>\n";
+};
+
+exports.render = render;
+
+},{}],18:[function(require,module,exports){
 "use strict";
 
 var _app = _interopRequireDefault(require("./app.js"));
@@ -1008,4 +1303,4 @@ window.onload = function () {
   new _app["default"](main).init();
 };
 
-},{"./app.js":3}]},{},[15]);
+},{"./app.js":3}]},{},[18]);
