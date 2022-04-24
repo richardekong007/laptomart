@@ -5,6 +5,7 @@ import Dialog from "./Dialog.js";
 export default class ReviewDialog extends Dialog {
 
     static CLOSE_REVIEW_DIALOG = "close-review-dialog";
+    static POST_REVIEW = "post-review";
 
     constructor(container) {
         super(container);
@@ -37,6 +38,7 @@ export default class ReviewDialog extends Dialog {
 
     #addEventListeners = () =>{
         this.#closeReviewDialogEvent();
+        this.#postReviewEvent();
     };
 
     inflate = () => {
@@ -57,5 +59,9 @@ export default class ReviewDialog extends Dialog {
         closeButton.addEventListener("click", (ev) => this.emit(ReviewDialog.CLOSE_REVIEW_DIALOG));
     };
 
+    #postReviewEvent = (reviewData) =>{
+      const postButton = document.querySelector("#post");
+      postButton.addEventListener("click", (ev) =>this.emit(ReviewDialog.POST_REVIEW, reviewData));
+    };
 }
 
