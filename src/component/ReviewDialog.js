@@ -1,6 +1,7 @@
 
 import {render} from "../template/ReviewDialog.js";
 import Dialog from "./Dialog.js";
+import {RatingStarView} from "./RatingStarView.js";
 
 export default class ReviewDialog extends Dialog {
 
@@ -13,15 +14,19 @@ export default class ReviewDialog extends Dialog {
 
     _createOverlay = () => {
         let overlay = document.createElement("div");
-        let dialogContainer = document.createElement("div");
         overlay.id = this._overlayId;
         overlay.className = this._overlayClass
         this.#styleOverlay(overlay);
+        this.#placeDialogContainerOn(overlay);
+        this._container.append(overlay);
+        this.#addEventListeners();
+    };
+
+    #placeDialogContainerOn = (overlay) =>{
+        let dialogContainer = document.createElement("div");
         dialogContainer.id = "dialog-container";
         dialogContainer.innerHTML = render();
         overlay.append(dialogContainer);
-        this._container.append(overlay);
-        this.#addEventListeners();
     };
 
     #styleOverlay = (overlay) => {
@@ -36,13 +41,22 @@ export default class ReviewDialog extends Dialog {
         overlay.style.zIndex = "10";
     };
 
+    #placeRatingWidgetIn = (widgetContainer) =>{
+        let ratingWidget = new RatingStarView(widgetContainer);
+        console.log(ratingWidget.innerHTML);
+        ratingWidget.render();
+    };
+
     #addEventListeners = () =>{
         this.#closeReviewDialogEvent();
         this.#postReviewEvent();
     };
 
     inflate = () => {
+        let ratingWidgetContainer;
         this._createOverlay();
+        ratingWidgetContainer = document.querySelector(".review-form-rating-bar");
+        this.#placeRatingWidgetIn(ratingWidgetContainer);
     };
 
     dismiss = () => {
