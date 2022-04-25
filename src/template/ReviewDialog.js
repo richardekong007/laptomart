@@ -12,13 +12,7 @@ export const render = () => {
                         <label for="comment">Comment:</label><br>
                         <textarea id="comment-input" name="comment" rows="10"></textarea><br><br>
                         <label>How would you rate the products and service?</label>
-                        <div class="review-form-rating-bar">
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
-                        </div> 
+                        <div class="review-form-rating-bar"></div> 
                         <div id="review-form-bottom">
                             <span class="empty-space"></span>
                             <button id="cancel">
